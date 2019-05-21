@@ -101,6 +101,7 @@ public class Player extends Actor
             attackTimer = ATTACK_DISTANCE / (speed * 3);
             canDoDamage =  true;
         }
+        
     }
     
     /**
@@ -110,6 +111,8 @@ public class Player extends Actor
      * executing a for loop that many times, each time it tests to see if it can move,
      * then sets its location to one pixel in the direction it needs to go. This
      * particular method always moves in the negative Y direction (Up).
+     * 
+     * @param speed The amount to move
      */
     public void moveUp(int speed)
     {
@@ -124,6 +127,7 @@ public class Player extends Actor
     
     /**
      * Functionally the same as moveUp, but moves in the positive Y direction (Down).
+     * @param speed The amount to move
      */
     public void moveDown(int speed)
     {
@@ -138,6 +142,7 @@ public class Player extends Actor
     
     /**
      * Functionally the same as moveUp, but moves in the negative X direction (Left).
+     * @param speed The amount to move
      */
     public void moveLeft(int speed)
     {
@@ -152,6 +157,7 @@ public class Player extends Actor
     
     /**
      * Functionally the same as moveUp, but moves in the positive X direction (Right).
+     * @param speed The amount to move
      */
     public void moveRight(int speed)
     {
@@ -230,6 +236,8 @@ public class Player extends Actor
     /**
      * A heal for a certain amount of the player. Adds that amount to the current health,
      * if health is at maximum it only goes to the maxHealth value.
+     * 
+     * @param amountHealed The amount to heal
      */
     public void heal(int amountHealed)
     {
@@ -238,6 +246,8 @@ public class Player extends Actor
     
     /**
      * Only called by the Enemy class. Subtracts an amount of damage from the Player's health.
+     * 
+     * @param dmg The amount of damage to take
      */
     public void takeDamage(int dmg)
     {
