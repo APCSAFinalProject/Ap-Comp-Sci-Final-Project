@@ -1,10 +1,14 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Player here.
+ * The class for the player object. A player is controlled by the player and
+ * moves using the W, A, S, and D keys. The player can attack with a dash
+ * and has 3 stats (health, speed, and damage)
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @Author: Adam Ruttledge, Cameron Pilla, Aiden Guimont, Anthony Wong, 
+ * Aaron Saparito, Luke Arsenault 
+ * 
+ * @version .1
  */
 public class Player extends Actor
 {
@@ -126,7 +130,9 @@ public class Player extends Actor
     }
     
     /**
-     * Functionally the same as moveUp, but moves in the positive Y direction (Down).
+     * Functionally the same as moveUp, but moves in the positive Y 
+     * direction (Down).
+     * 
      * @param speed The amount to move
      */
     public void moveDown(int speed)
@@ -141,7 +147,9 @@ public class Player extends Actor
     }
     
     /**
-     * Functionally the same as moveUp, but moves in the negative X direction (Left).
+     * Functionally the same as moveUp, but moves in the negative X 
+     * direction (Left).
+     * 
      * @param speed The amount to move
      */
     public void moveLeft(int speed)
@@ -156,7 +164,9 @@ public class Player extends Actor
     }
     
     /**
-     * Functionally the same as moveUp, but moves in the positive X direction (Right).
+     * Functionally the same as moveUp, but moves in the positive X 
+     * direction (Right).
+     * 
      * @param speed The amount to move
      */
     public void moveRight(int speed)
@@ -171,10 +181,11 @@ public class Player extends Actor
     }
     
     /**
-     * Method called for attacking an enemy. tests to see if it is able to deal damage
-     * and if it is currently touching an enemy. If it touching an enemy, it deals damage
-     * to one enemy that it is touching. After it deals damage, it sets itself to no longer
-     * be able to deal damage. This means it will not attack multiple enemies in a single
+     * Method called for attacking an enemy. tests to see if it is able 
+     * to deal damage and if it is currently touching an enemy. If it 
+     * touching an enemy, it deals damage to one enemy that it is touching. 
+     * After it deals damage, it sets itself to no longer be able to deal 
+     * damage. This means it will not attack multiple enemies in a single
      * lunge, and it will not deal damage to an enemy twice in a single lunge. 
      */
     public void hit()
@@ -188,8 +199,8 @@ public class Player extends Actor
     }
     
     /**
-     * Method that is run every tick. Tests to see if it is at zero health, and removes
-     * the player from the game if it is.
+     * Method that is run every tick. Tests to see if it is at zero health, 
+     * and removes the player from the game if it is.
      */
     public void die()
     {
@@ -201,8 +212,10 @@ public class Player extends Actor
     
     /**
      * Method for adding stats to the player. Heals player no matter the parameters.
+     * 
      * @param whatStat determines which stat to upgrade. 0 is health, 1 is speed, 2 is
      * damage.
+     * 
      * @param howMuch how many points to upgrade the selected stat by. 
      */
     public void levelUp(int whatStat, int howMuch)
@@ -234,8 +247,9 @@ public class Player extends Actor
     }
     
     /**
-     * A heal for a certain amount of the player. Adds that amount to the current health,
-     * if health is at maximum it only goes to the maxHealth value.
+     * A heal for a certain amount of the player. Adds that amount 
+     * to the current health,if health is at maximum it only goes 
+     * to the maxHealth value.
      * 
      * @param amountHealed The amount to heal
      */
@@ -245,7 +259,8 @@ public class Player extends Actor
     }
     
     /**
-     * Only called by the Enemy class. Subtracts an amount of damage from the Player's health.
+     * Only called by the Enemy class. Subtracts an amount of damage 
+     * from the Player's health.
      * 
      * @param dmg The amount of damage to take
      */

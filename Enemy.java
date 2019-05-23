@@ -2,10 +2,16 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.awt.Color;
 import java.util.*;
 /**
- * Write a description of class Enemy here.
+ * Enemy is the basic enemy class. The enemy has 3 stats 
+ * (health, damage, and speed) which are assigned randomly. The enemy moves
+ * by attacking with a dash in the direction of the player and faces a 
+ * cooldown afterwards. When the enemy's health reaches 0, it is removed
+ * from the world.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @Author: Adam Ruttledge, Cameron Pilla, Aiden Guimont, Anthony Wong, 
+ * Aaron Saparito, Luke Arsenault 
+ * 
+ * @Version: .1
  */
 public class Enemy extends Actor
 {
@@ -19,11 +25,14 @@ public class Enemy extends Actor
     private int attackCooldownTimer;
     
     /**
-     * Constructor initializes all instance fields. For health, damage, and speed, it
-     * takes in a value called points and distributes the total value of points between
-     * the three ints randomly. Each one will be at a minimum 1, and at a maximum points-2.
-     * Color is also determined, and the color is set based on health damage and speed.
-     * @param points The value is divided randomly between health, damage, and speed.
+     * Constructor initializes all instance fields. For health, damage, 
+     * and speed, it takes in a value called points and distributes the 
+     * total value of points between the three ints randomly. Each one will 
+     * be at a minimum 1, and at a maximum points-2. Color is also 
+     * determined, and the color is set based on health damage and speed.
+     * 
+     * @param points The value is divided randomly between health, damage, 
+     * and speed.
      */
     public Enemy(int points)
     {
@@ -148,7 +157,11 @@ public class Enemy extends Actor
     }
     
     /**
-     * Only called by the Player class. Subtracts an amount of damage from the enemy's health.
+     * Only called by the Player class. Subtracts an amount of damage 
+     * from the enemy's health.
+     * 
+     * @param dmg The damage that the enemy will is taking from an 
+     * incoming player attack
      */
     public void takeDamage(int dmg)
     {
