@@ -2,16 +2,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.awt.Color;
 import java.util.*;
 /**
- * Enemy is the basic enemy class. The enemy has 3 stats 
- * (health, damage, and speed) which are assigned randomly. The enemy moves
- * by attacking with a dash in the direction of the player and faces a 
- * cooldown afterwards. When the enemy's health reaches 0, it is removed
- * from the world.
+ * Write a description of class Enemy here.
  * 
- * @Author: Adam Ruttledge, Cameron Pilla, Aiden Guimont, Anthony Wong, 
- * Aaron Saparito, Luke Arsenault 
- * 
- * @Version: .1
+ * @author (your name) 
+ * @version (a version number or a date)
  */
 public class Enemy extends Actor
 {
@@ -25,14 +19,11 @@ public class Enemy extends Actor
     private int attackCooldownTimer;
     
     /**
-     * Constructor initializes all instance fields. For health, damage, 
-     * and speed, it takes in a value called points and distributes the 
-     * total value of points between the three ints randomly. Each one will 
-     * be at a minimum 1, and at a maximum points-2. Color is also 
-     * determined, and the color is set based on health damage and speed.
-     * 
-     * @param points The value is divided randomly between health, damage, 
-     * and speed.
+     * Constructor initializes all instance fields. For health, damage, and speed, it
+     * takes in a value called points and distributes the total value of points between
+     * the three ints randomly. Each one will be at a minimum 1, and at a maximum points-2.
+     * Color is also determined, and the color is set based on health damage and speed.
+     * @param points The value is divided randomly between health, damage, and speed.
      */
     public Enemy(int points)
     {
@@ -105,7 +96,7 @@ public class Enemy extends Actor
     public void attack()
     {
         List<Player> players = getWorld().getObjects(Player.class);
-        if(attackTimer == 0 && attackCooldownTimer ==0 && players.get(0) != null)
+        if(attackTimer == 0 && attackCooldownTimer ==0 && players.size() > 0)
         {
             Player a = players.get(0);
             //Distances between the two, will be used to get an angle.
@@ -157,11 +148,7 @@ public class Enemy extends Actor
     }
     
     /**
-     * Only called by the Player class. Subtracts an amount of damage 
-     * from the enemy's health.
-     * 
-     * @param dmg The damage that the enemy will is taking from an 
-     * incoming player attack
+     * Only called by the Player class. Subtracts an amount of damage from the enemy's health.
      */
     public void takeDamage(int dmg)
     {
@@ -169,12 +156,22 @@ public class Enemy extends Actor
     }
     
     /**
-     * Tests to see if health is zero or less, and if true, removes itself.
+     * Tests to see if health is zero or less. If true, gives the player
+     * an amount of money between the sum of its stats divided by two and
+     * the sum of its stats plus 1/2 the sum of its stats. It then removes 
+     * itself from the game.
      */
     public void die()
     {
         if(health <= 0)
         {
+            List<Player> players = getWorld().getObjects(Player.class);
+            for(Player a : players)
+            {
+                int stats = health + damage + speed;
+                int rand = (int) (Math.random() * stats) - (stats / 2);
+                a.addMoney(stats + rand);
+            }
             getWorld().removeObject(this);
         }
     }
