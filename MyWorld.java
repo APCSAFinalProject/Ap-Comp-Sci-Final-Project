@@ -29,6 +29,7 @@ public class MyWorld extends World
         currentRoom = 0;
         level = 1;
         addObject(new Player(), 300, 300);
+        setBackground(new GreenfootImage("images/map_01.png"));
         spawnEnemies();
     }
     
@@ -252,20 +253,20 @@ public class MyWorld extends World
         int rotation = 0;
         if(roomCode.length() > 1 && !roomCode.substring(0,2).equals("2S"))
         {
-            img = new GreenfootImage(type + "Door.jpg");
+            //img = new GreenfootImage(type + "Door.jpg");
             rotation = Integer.parseInt(roomCode.substring(2));
         }
         else if(roomCode.length() == 1)
         {
-            img = new GreenfootImage("4Door.jpg");
+            //img = new GreenfootImage("4Door.jpg");
         }
         else
         {
-            img = new GreenfootImage("2DoorAcr.jpg");
+            //img = new GreenfootImage("2DoorAcr.jpg");
             rotation = Integer.parseInt(roomCode.substring(3));
         }
-        img.rotate(rotation);
-        setBackground(img);
+        //img.rotate(rotation);
+        //setBackground(img);
     }
     
     public void nextRoom(int whichDoor)

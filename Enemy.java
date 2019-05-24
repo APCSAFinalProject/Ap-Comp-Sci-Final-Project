@@ -71,6 +71,8 @@ public class Enemy extends Actor
          * Enemy's color to col.
          */
         col = new Color(red, green, blue);
+        GreenfootImage sprite = new GreenfootImage("images/enemy_0.png");
+        setImage(sprite);
     }
     
     /**

@@ -32,6 +32,7 @@ public class Player extends Actor
         attackCooldownTimer = 0;
         balance = 0;
         canDoDamage = false;
+        setImage(new GreenfootImage("images/player_0.png"));
     }
     
     /**
