@@ -9,7 +9,9 @@ import java.util.*;
 public class MyWorld extends World
 {
     private ArrayList<String> mapcode;
+    private boolean[] cleared;
     private int currentRoom;
+    private int level;
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -20,7 +22,14 @@ public class MyWorld extends World
         super(600, 600, 1);
         mapcode = new ArrayList<String>();
         mapcode.add("0,0");
+        generateCells();
+        addDoors();
+        cleared = new boolean[mapcode.size()];
+        updateImage(findConfig(findDoors(mapcode.get(0))));
         currentRoom = 0;
+        level = 1;
+        addObject(new Player(), 300, 300);
+        spawnEnemies();
     }
     
     /**
@@ -65,18 +74,16 @@ public class MyWorld extends World
                     mapcode.add(x + "," + (y - 1));
                 }
             }
-            
-            for(int i = size - 1; i >= 0; i--)
-            {
-                for(int x = size - 1; x >= 0; x--)
-                {
-                    if(x != i && mapcode.get(x).equals(mapcode.get(i)))
-                    {
-                        mapcode.remove(x);
-                    }
-                }
-            }
         }
+        
+        /*A Set collection does not allow duplicates. By putting all values of
+         * mapcode into a set and then adding them back into mapcode, all
+         * duplicates are removed.
+         */
+        
+        Set<String> set = new HashSet<>(mapcode);
+        mapcode.clear();
+        mapcode.addAll(set);
     }
     
     /**
@@ -182,7 +189,11 @@ public class MyWorld extends World
             {
                 boolean[] temp = new boolean[4];
                 temp[i] = true;
-                if(temp.equals(doors))
+                /*While this looks strange, it is the only way to compare two
+                 * boolean arrays. arr1.equals(arr2), arr1.compareTo(arr2), and
+                 * arr1 == arr2 all fail.
+                 */
+                if(Arrays.equals(temp, doors))
                 {
                     str += "," + (i * 90);
                 }
@@ -196,9 +207,9 @@ public class MyWorld extends World
                 boolean[] temp = new boolean[4];
                 temp[i] = true;
                 temp[(i+1) % 4] = true;
-                if(temp.equals(doors))
+                if(Arrays.equals(temp, doors))
                 {
-                    str += "," + (i * 90);
+                    str += "," + ((i+1) * 90);
                 }
             }
             for(int i = 0; i < 2; i++)
@@ -206,7 +217,7 @@ public class MyWorld extends World
                 boolean[] temp = new boolean[4];
                 temp[i] = true;
                 temp[i+2] = true;
-                if(temp.equals(doors))
+                if(Arrays.equals(temp, doors))
                 {
                     str += "S," + (i * 90);
                 }
@@ -220,7 +231,7 @@ public class MyWorld extends World
                 boolean[] temp = new boolean[4];
                 Arrays.fill(temp, Boolean.TRUE);
                 temp[i] = false;
-                if(temp.equals(doors))
+                if(Arrays.equals(temp, doors))
                 {
                     str += "," + (i * 90);
                 }
@@ -232,5 +243,153 @@ public class MyWorld extends World
         }
         
         return str;
+    }
+    
+    public void updateImage(String roomCode)
+    {
+        int type = Integer.parseInt(roomCode.substring(0,1));
+        GreenfootImage img;
+        int rotation = 0;
+        if(roomCode.length() > 1 && !roomCode.substring(0,2).equals("2S"))
+        {
+            img = new GreenfootImage(type + "Door.jpg");
+            rotation = Integer.parseInt(roomCode.substring(2));
+        }
+        else if(roomCode.length() == 1)
+        {
+            img = new GreenfootImage("4Door.jpg");
+        }
+        else
+        {
+            img = new GreenfootImage("2DoorAcr.jpg");
+            rotation = Integer.parseInt(roomCode.substring(3));
+        }
+        img.rotate(rotation);
+        setBackground(img);
+    }
+    
+    public void nextRoom(int whichDoor)
+    {
+        String roomCode = mapcode.get(currentRoom);
+        if(whichDoor == 0)
+        {
+            /*Creates a new string, removing everything before the character N.
+             * This means that the very first integer in the string is the one
+             * directly after the "N" character. This sets us up to then find
+             * the first integer, and make that the room we must go to.
+             */
+            String str = roomCode.substring(roomCode.indexOf("N"));
+            Scanner s = new Scanner(str);
+            /* A delimiter for a scanner means something that separates tokens
+             * the scanner must look for. if a string is "a/d/f/g" and a scanner
+             * uses "/" as a delimiter, a, d, f, and g become tokens that the
+             * scanner can find. By using the delimiter \D+, everything that is
+             * not an integer becomes a delimiter. Therefore, the only tokens the
+             * scanner can find will be integers.
+             */
+            s.useDelimiter("\\D+");
+            /* Now, when we call nextInt(), the first int in the string is
+             * returned, which we know to be the one directly after "N". We set
+             * the current room to wherever the north door leads to.
+             */
+            currentRoom = s.nextInt();
+            updateImage(findConfig(findDoors(mapcode.get(currentRoom))));
+        }
+        else if(whichDoor == 1)
+        {
+            String str = roomCode.substring(roomCode.indexOf("E"));
+            Scanner s = new Scanner(str);
+            s.useDelimiter("\\D+");
+            currentRoom = s.nextInt();
+            updateImage(findConfig(findDoors(mapcode.get(currentRoom))));
+        }
+        else if(whichDoor == 2)
+        {
+            String str = roomCode.substring(roomCode.indexOf("S"));
+            Scanner s = new Scanner(str);
+            s.useDelimiter("\\D+");
+            currentRoom = s.nextInt();
+            updateImage(findConfig(findDoors(mapcode.get(currentRoom))));
+        }
+        else
+        {
+            String str = roomCode.substring(roomCode.indexOf("W"));
+            Scanner s = new Scanner(str);
+            s.useDelimiter("\\D+");
+            currentRoom = s.nextInt();
+            updateImage(findConfig(findDoors(mapcode.get(currentRoom))));
+        }
+        if(!cleared[currentRoom])
+        {
+            spawnEnemies();
+        }
+    }
+    
+    public int getRoom()
+    {
+        return currentRoom;
+    }
+    
+    public String getRoomCode()
+    {
+        return mapcode.get(currentRoom);
+    }
+    
+    public ArrayList<String> getRooms()
+    {
+        return mapcode;
+    }
+    
+    public void spawnEnemies()
+    {
+        if(!cleared[currentRoom])
+        {
+            int numEnemies = (int) (Math.random() * 4) + 1;
+            Player player = getObjects(Player.class).get(0);
+            int playerX = player.getX();
+            int playerY = player.getY();
+            int i = 0;
+            while(i < numEnemies)
+            {
+                /*
+                 * Creates a random stat value. The lowest this value can be
+                 * is whatever the level currently is. The highest this value
+                 * can be is two times the current level. As time goes on, enemies
+                 * get gradually harder and more spread apart in their power.
+                 */
+                int stats = level + (int) (Math.random() * level);
+                Enemy enemy = new Enemy(stats);
+                int x = -1;
+                int y = -1;
+                while(x == -1)
+                {
+                    int rand = (int) (Math.random() * 600);
+                    if(rand <= playerX - 100 || rand >= playerX + 100)
+                    {
+                        x = rand;
+                    }
+                }
+                while(y == -1)
+                {
+                    int rand = (int) (Math.random() * 600);
+                    if(playerY - 100 >= rand || rand >= playerY + 100)
+                    {
+                        y = rand;
+                    }
+                }
+                addObject(enemy, x, y);
+                i++;
+            }
+        }
+    }
+    
+    public void clearLevel()
+    {
+        cleared[currentRoom] = true;
+    }
+    
+    public boolean getCleared()
+    {
+        return cleared[currentRoom];
     }
 }
