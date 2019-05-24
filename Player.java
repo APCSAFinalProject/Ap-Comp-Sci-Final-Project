@@ -1,14 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The class for the player object. A player is controlled by the player and
- * moves using the W, A, S, and D keys. The player can attack with a dash
- * and has 3 stats (health, speed, and damage)
+ * Write a description of class Player here.
  * 
- * @Author: Adam Ruttledge, Cameron Pilla, Aiden Guimont, Anthony Wong, 
- * Aaron Saparito, Luke Arsenault 
- * 
- * @version .1
+ * @author (your name) 
+ * @version (a version number or a date)
  */
 public class Player extends Actor
 {
@@ -17,9 +13,11 @@ public class Player extends Actor
     private int damage;
     private int health;
     private int attackTimer;
+    private int attackCooldownTimer;
+    private int balance;
     private boolean canDoDamage;
     private static int ATTACK_DISTANCE = 70;
-    
+    private static int ATTACK_COOLDOWN = 60;
     /**
      * The only constructor for player is a non-input constructor. A player
      * is always created at the start of the game with the same stats.
@@ -31,6 +29,8 @@ public class Player extends Actor
         damage = 5;
         health = maxHealth;
         attackTimer = 0;
+        attackCooldownTimer = 0;
+        balance = 0;
         canDoDamage = false;
     }
     
@@ -41,16 +41,25 @@ public class Player extends Actor
     public void act() 
     {
         hit();
+        advance();
         if(attackTimer == 0)
         {
             canDoDamage = false;
             followMouse();
             takeInput();
+            if(attackCooldownTimer > 0)
+            {
+                attackCooldownTimer--;
+            }
         }
         else
         {
             move(speed * 3);
             attackTimer--;
+        }
+        if(!((MyWorld) getWorld()).getCleared() && getWorld().getObjects(Enemy.class).size() == 0)
+        {
+            ((MyWorld) getWorld()).clearLevel();
         }
         die();
     }
@@ -100,10 +109,11 @@ public class Player extends Actor
             moveRight(speed);
         }
         
-        if(Greenfoot.isKeyDown("space"))
+        if(Greenfoot.isKeyDown("space") && attackCooldownTimer == 0)
         {
             attackTimer = ATTACK_DISTANCE / (speed * 3);
             canDoDamage =  true;
+            attackCooldownTimer = ATTACK_COOLDOWN;
         }
         
     }
@@ -130,9 +140,7 @@ public class Player extends Actor
     }
     
     /**
-     * Functionally the same as moveUp, but moves in the positive Y 
-     * direction (Down).
-     * 
+     * Functionally the same as moveUp, but moves in the positive Y direction (Down).
      * @param speed The amount to move
      */
     public void moveDown(int speed)
@@ -147,9 +155,7 @@ public class Player extends Actor
     }
     
     /**
-     * Functionally the same as moveUp, but moves in the negative X 
-     * direction (Left).
-     * 
+     * Functionally the same as moveUp, but moves in the negative X direction (Left).
      * @param speed The amount to move
      */
     public void moveLeft(int speed)
@@ -164,9 +170,7 @@ public class Player extends Actor
     }
     
     /**
-     * Functionally the same as moveUp, but moves in the positive X 
-     * direction (Right).
-     * 
+     * Functionally the same as moveUp, but moves in the positive X direction (Right).
      * @param speed The amount to move
      */
     public void moveRight(int speed)
@@ -181,11 +185,10 @@ public class Player extends Actor
     }
     
     /**
-     * Method called for attacking an enemy. tests to see if it is able 
-     * to deal damage and if it is currently touching an enemy. If it 
-     * touching an enemy, it deals damage to one enemy that it is touching. 
-     * After it deals damage, it sets itself to no longer be able to deal 
-     * damage. This means it will not attack multiple enemies in a single
+     * Method called for attacking an enemy. tests to see if it is able to deal damage
+     * and if it is currently touching an enemy. If it touching an enemy, it deals damage
+     * to one enemy that it is touching. After it deals damage, it sets itself to no longer
+     * be able to deal damage. This means it will not attack multiple enemies in a single
      * lunge, and it will not deal damage to an enemy twice in a single lunge. 
      */
     public void hit()
@@ -199,8 +202,8 @@ public class Player extends Actor
     }
     
     /**
-     * Method that is run every tick. Tests to see if it is at zero health, 
-     * and removes the player from the game if it is.
+     * Method that is run every tick. Tests to see if it is at zero health, and removes
+     * the player from the game if it is.
      */
     public void die()
     {
@@ -212,10 +215,8 @@ public class Player extends Actor
     
     /**
      * Method for adding stats to the player. Heals player no matter the parameters.
-     * 
      * @param whatStat determines which stat to upgrade. 0 is health, 1 is speed, 2 is
      * damage.
-     * 
      * @param howMuch how many points to upgrade the selected stat by. 
      */
     public void levelUp(int whatStat, int howMuch)
@@ -247,9 +248,8 @@ public class Player extends Actor
     }
     
     /**
-     * A heal for a certain amount of the player. Adds that amount 
-     * to the current health,if health is at maximum it only goes 
-     * to the maxHealth value.
+     * A heal for a certain amount of the player. Adds that amount to the current health,
+     * if health is at maximum it only goes to the maxHealth value.
      * 
      * @param amountHealed The amount to heal
      */
@@ -259,13 +259,97 @@ public class Player extends Actor
     }
     
     /**
-     * Only called by the Enemy class. Subtracts an amount of damage 
-     * from the Player's health.
+     * Only called by the Enemy class. Subtracts an amount of damage from the Player's health.
      * 
      * @param dmg The amount of damage to take
      */
     public void takeDamage(int dmg)
     {
         health -= dmg;
+    }
+    
+    /**
+     * Takes money out of the player's balance. Can make balance negative,
+     * but the classes calling removeMoney will prevent this from happening.
+     * @param amount the amount of money removed from player's balance
+     */
+    public void removeMoney(int amount)
+    {
+        balance -= amount;
+    }
+    
+    /**
+     * Adds money to the player's balance.
+     * @param amount the amount of money to add to the player's balance.
+     */
+    public void addMoney(int amount)
+    {
+        balance += amount;
+    }
+    
+    /**
+     * Used to access the player's balance.
+     * @returns the player's balance.
+     */
+    public int getBalance()
+    {
+        return balance;
+    }
+    
+    public void advance()
+    {
+        if(getWorld().getObjects(Enemy.class).size() == 0)
+        {
+            MyWorld world = (MyWorld) getWorld();
+            boolean[] doors = world.findDoors(world.getRoomCode());
+            if(doorNum() == 0 && doors[doorNum()])
+            {
+                world.nextRoom(doorNum());
+                setLocation(300,500);
+            }
+            else if(doorNum() == 1 && doors[doorNum()])
+            {
+                world.nextRoom(doorNum());
+                setLocation(100,300);
+            }
+            else if(doorNum() == 2 && doors[doorNum()])
+            {
+                world.nextRoom(doorNum());
+                setLocation(300,100);
+            }
+            else if(doorNum() == 3 && doors[doorNum()])
+            {
+                world.nextRoom(doorNum());
+                setLocation(500,300);
+            }
+        }
+    }
+    
+    public int doorNum()
+    {
+        int door = -1;
+        if(250 <= this.getX() && this.getX() < 350)
+        {
+            if(0 <= this.getY() && this.getY() < 50)
+            {
+                door = 0;
+            }
+            else if(550 <= this.getY() && this.getY() < 600)
+            {
+                door = 2;
+            }
+        }
+        else if(250 <= this.getY() && this.getY() < 350)
+        {
+            if(0 <= this.getX() && this.getX() < 50)
+            {
+                door = 3;
+            }
+            else if(550 <= this.getX() && this.getX() < 600)
+            {
+                door = 1;
+            }
+        }
+        return door;
     }
 }
