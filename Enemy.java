@@ -1,5 +1,4 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-import java.awt.Color;
 import java.util.*;
 /**
  * Write a description of class Enemy here.
@@ -17,7 +16,6 @@ public class Enemy extends Actor
     private int attackTimer;
     private static int ATTACK_DISTANCE = 60;
     private int attackCooldownTimer;
-    
     /**
      * Constructor initializes all instance fields. For health, damage, and speed, it
      * takes in a value called points and distributes the total value of points between
@@ -30,13 +28,25 @@ public class Enemy extends Actor
         canDoDamage = false;
         attackTimer = 0;
         attackCooldownTimer = 0;
-        int dist = 1 + (int) (Math.random() * points);
-        this.health = dist;
-        points -= (dist - 1);
-        dist = 1 + (int) (Math.random() * points);
-        damage = dist;
-        points -= (dist - 1);
-        speed = points + 1;
+        health = 1;
+        damage = 1;
+        speed = 1;
+        for(int i = 1; i <= points; i++)
+        {
+            int rand = (int)(Math.random() * 3) + 1;
+            if(rand == 1)
+            {
+                health++;
+            }
+            else if(rand == 2)
+            {
+                damage++;
+            }
+            else if(rand == 3)
+            {
+                speed++;
+            }
+        }
         int red = 0;
         int green = 0;
         int blue = 0;
@@ -70,9 +80,14 @@ public class Enemy extends Actor
         /*assigns the determined value to the col variable. Must find out how to set the
          * Enemy's color to col.
          */
+        GreenfootImage img = new GreenfootImage("enemy_0.png");
         col = new Color(red, green, blue);
-        GreenfootImage sprite = new GreenfootImage("images/enemy_0.png");
-        setImage(sprite);
+        /* currently have no clue how to actually change colors, fill just
+         * turns it into a square of whatever color col is.
+         */
+        //img.setColor(col);
+        //img.fill();
+        setImage(img);
     }
     
     /**
@@ -116,7 +131,8 @@ public class Enemy extends Actor
              */
             attackTimer = ATTACK_DISTANCE / speed;
             //Sets a timer that will be used for waiting after the attack is over
-            attackCooldownTimer = 60;
+            int attackCooldown = 50 + (int) (Math.random() * 20);
+            attackCooldownTimer = attackCooldown;
             //Sets the enemy so it is allowed to deal damage when it touches a player.
             canDoDamage = true;
         }
