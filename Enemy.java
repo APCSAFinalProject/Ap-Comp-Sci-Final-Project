@@ -80,7 +80,7 @@ public class Enemy extends Actor
         /*assigns the determined value to the col variable. Must find out how to set the
          * Enemy's color to col.
          */
-        GreenfootImage img = new GreenfootImage("enemy_0.png");
+        GreenfootImage img = new GreenfootImage("images/enemy_0.png");
         col = new Color(red, green, blue);
         /* currently have no clue how to actually change colors, fill just
          * turns it into a square of whatever color col is.
