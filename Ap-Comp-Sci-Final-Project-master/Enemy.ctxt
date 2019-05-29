@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Enemy
+comment0.text=\n\ Write\ a\ description\ of\ class\ Enemy\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment1.params=points
+comment1.target=Enemy(int)
+comment1.text=\n\ Constructor\ initializes\ all\ instance\ fields.\ For\ health,\ damage,\ and\ speed,\ it\n\ takes\ in\ a\ value\ called\ points\ and\ distributes\ the\ total\ value\ of\ points\ between\n\ the\ three\ ints\ randomly.\ Each\ one\ will\ be\ at\ a\ minimum\ 1,\ and\ at\ a\ maximum\ points-2.\n\ Color\ is\ also\ determined,\ and\ the\ color\ is\ set\ based\ on\ health\ damage\ and\ speed.\n\ @param\ points\ The\ value\ is\ divided\ randomly\ between\ health,\ damage,\ and\ speed.\n
+comment2.params=points
+comment2.target=void\ assignPoints(int)
+comment2.text=\ \n\ Takes\ the\ points\ from\ the\ instance\ variable\ points\ of\ the\ enemy\ and\ assigns\ them\ \n\ one\ at\ a\ time\ to\ a\ radom\ stat\ (health,\ damage,\ or\ speed).\n
+comment3.params=
+comment3.target=void\ assignImage()
+comment4.params=
+comment4.target=void\ act()
+comment4.text=\n\ Act\ Runs\ attack,\ which\ determines\ the\ attack-based\ movement\ of\ the\ enemy,\ hit,\n\ which\ determines\ when\ to\ deal\ damage\ to\ a\ player,\ and\ die,\ which\ determines\ when\n\ health\ is\ at\ 0\ and\ the\ enemy\ should\ be\ removed\ from\ the\ world.\ \n
+comment5.params=
+comment5.target=void\ attack()
+comment5.text=\n\ Runs\ on\ various\ timers\ to\ determine\ when\ to\ start\ attacking,\ to\ continue\ attacking,\n\ and\ when\ to\ rest.\ When\ both\ attackCooldownTimer\ and\ attackTimer\ are\ zero,\ it\ is\ time\n\ to\ start\ an\ attack\ and\ the\ largest\ section\ is\ run,\ which\ sets\ direction\ of\ attack\ and\n\ resets\ the\ timers.\ When\ attackTimer\ is\ above\ zero,\ the\ actor\ just\ moves\ and\ decrements\n\ the\ timer,\ does\ not\ decrement\ the\ cooldown\ timer.\ After\ this,\ the\ actor\ sits\ and\ does\n\ nothing\ during\ a\ cooldown\ phase\ determined\ by\ the\ attackCooldownTimer.\n
+comment6.params=
+comment6.target=void\ hit()
+comment6.text=\n\ Tests\ for\ whether\ it\ is\ currently\ able\ to\ do\ damage\ (which\ is\ when\ it\ is\ mid-attack\ and\n\ has\ not\ already\ dealt\ damage\ yet\ in\ this\ attack)\ and\ whether\ it\ is\ touching\ a\ player.\n\ If\ both\ are\ true,\ it\ deals\ damage\ to\ the\ player.\n
+comment7.params=dmg
+comment7.target=void\ takeDamage(int)
+comment7.text=\n\ Only\ called\ by\ the\ Player\ class.\ Subtracts\ an\ amount\ of\ damage\ from\ the\ enemy's\ health.\n
+comment8.params=
+comment8.target=void\ die()
+comment8.text=\n\ Tests\ to\ see\ if\ health\ is\ zero\ or\ less.\ If\ true,\ gives\ the\ player\n\ an\ amount\ of\ money\ between\ the\ sum\ of\ its\ stats\ divided\ by\ two\ and\n\ the\ sum\ of\ its\ stats\ plus\ 1/2\ the\ sum\ of\ its\ stats.\ It\ then\ removes\ \n\ itself\ from\ the\ game.\n
+numComments=9
