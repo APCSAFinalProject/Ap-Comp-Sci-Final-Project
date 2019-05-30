@@ -70,6 +70,27 @@ public class Player extends Actor
     }
     
     /**
+     * Called to enter the shop room.
+     */
+    public void enterShop()
+    {
+        //setWorld()?
+    }
+    
+    /**
+     * Checks if the player is in the shop.
+     * @return True if the player is in the shop.
+     */
+    public boolean isInShop()
+    {
+        if(getWorld().getBackground().equals(new GreenfootImage("images/shop.png")))
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
      * Gets the player's health.
      * @return Player health
      */
