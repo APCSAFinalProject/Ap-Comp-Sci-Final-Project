@@ -15,8 +15,6 @@ public class Enemy extends Actor
     private int attackTimer;
     private static int ATTACK_DISTANCE = 60;
     private int attackCooldownTimer;
-    private int sprite;
-    private Color col;
     /**
      * Constructor initializes all instance fields. For health, damage, and speed, it
      * takes in a value called points and distributes the total value of points between
@@ -79,9 +77,8 @@ public class Enemy extends Actor
         /*assigns the determined value to the col variable. Must find out how to set the
          * Enemy's color to col.
          */
-        sprite = (int) (Math.random() * 3);
-        GreenfootImage img = new GreenfootImage("images/enemy_" + sprite + ".png");
-        col = new Color(red, green, blue, 100);
+        GreenfootImage img = new GreenfootImage("images/enemy_0.png");
+        Color col = new Color(red, green, blue, 100);
         img.setColor(col);
         img.fillOval(0, 0, img.getWidth(), img.getHeight());
         /* currently have no clue how to actually change colors, fill just
@@ -117,10 +114,6 @@ public class Enemy extends Actor
         List<Player> players = getWorld().getObjects(Player.class);
         if(attackTimer == 0 && attackCooldownTimer ==0 && players.size() > 0)
         {
-            GreenfootImage img = new GreenfootImage("images/enemy_" + sprite + "_attack.png");
-            img.setColor(col);
-            img.fillOval(0, 0, img.getWidth(), img.getHeight());
-            setImage(img);
             Player a = players.get(0);
             //Distances between the two, will be used to get an angle.
             int xDist = a.getX() - this.getX();
@@ -153,10 +146,6 @@ public class Enemy extends Actor
         {
             attackCooldownTimer--;
             canDoDamage = false;
-            GreenfootImage img = new GreenfootImage("images/enemy_" + sprite + ".png");
-            img.setColor(col);
-            img.fillOval(0, 0, img.getWidth(), img.getHeight());
-            setImage(img);
         }
     }
     
@@ -196,9 +185,7 @@ public class Enemy extends Actor
             List<Player> players = getWorld().getObjects(Player.class);
             for(Player a : players)
             {
-                int stats = health + damage + speed;
-                int rand = (int) (Math.random() * stats) - (stats / 2);
-                a.addMoney(stats + rand);
+                a.addMoney(10);
             }
             getWorld().removeObject(this);
         }
