@@ -33,6 +33,22 @@ public class MyWorld extends World
         spawnEnemies();
     }
     
+     public void act()
+    {
+        if(getObjects(Player.class).size() != 0)
+        {
+            Player player = getObjects(Player.class).get(0);
+            String healthDisplay = "Health: " + player.getHealth();
+            String balanceDisplay = "Gold: " + player.getBalance();
+        
+            int healthDisplayX = 5 * healthDisplay.length();
+            int balanceDisplayX = 5 * balanceDisplay.length();;
+            
+            showText(healthDisplay, 55, 585);
+            showText(balanceDisplay, 55, 565);
+        }
+    }
+    
     /**
      * Creates a map for the game. The initial random number creates an aproximate number of rooms
      * (though due to the nature of the creation, this number cannot be exact). The algorithm starts
@@ -465,5 +481,27 @@ public class MyWorld extends World
             }
         }
         return str;
+    }
+    
+    public void testShopRoom()
+    {
+        GreenfootImage img = new GreenfootImage("shop.png");
+        Player player = getObjects(Player.class).get(0);
+        
+        setBackground(img);
+        player.setLocation(300, 300);
+        player.enterShop();
+    }
+    
+    public void displayStats()
+    {
+        Player player = getObjects(Player.class).get(0);
+        
+        if(player.isInShop())
+        {
+            showText("Current Health: " + player.getHealth(), 100, 120);
+            showText("Current Damage: " + player.getHealth(), 100, 120);
+            showText("Current Speed: " + player.getHealth(), 100, 120);
+        }
     }
 }

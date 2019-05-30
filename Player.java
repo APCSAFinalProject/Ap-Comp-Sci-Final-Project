@@ -18,6 +18,7 @@ public class Player extends Actor
     private boolean canDoDamage;
     private static int ATTACK_DISTANCE = 70;
     private static int ATTACK_COOLDOWN = 60;
+    private boolean inShop;
     /**
      * The only constructor for player is a non-input constructor. A player
      * is always created at the start of the game with the same stats.
@@ -33,6 +34,7 @@ public class Player extends Actor
         balance = 0;
         canDoDamage = false;
         setImage(new GreenfootImage("images/player_0.png"));
+        inShop = false;
     }
     
     /**
@@ -353,4 +355,68 @@ public class Player extends Actor
         }
         return door;
     }
+    
+    public void shop()
+    {
+        if(inShop)
+        {
+            boolean purchaseReady = true;
+            if(purchaseReady == true && this.getX() < 200 && this.getY() < 100)
+            {
+                removeMoney(10);
+                levelUp(0, 1);
+                purchaseReady = false;
+            }
+            else if(purchaseReady == true && this.getX() > 200 && this.getX() < 400 
+                && this.getY() < 100)
+            {
+                removeMoney(10);
+                levelUp(1, 1);
+                purchaseReady = false;
+            }
+            else if(purchaseReady == true && this.getX() > 400 && this.getX() < 600
+                && this.getY() < 100)
+            {
+                removeMoney(10);
+                levelUp(2, 1);
+                purchaseReady = false;
+            }
+            
+            if(purchaseReady == false && this.getY() > 100)
+            {
+                purchaseReady = true;
+            }
+        }
+    }
+    
+    public void enterShop()
+    {
+        inShop = true;
+    }
+    
+    public void leaveShop()
+    {
+        inShop = false;
+    }
+    
+    public boolean isInShop()
+    {
+        return inShop;
+    }
+    
+    public int getHealth()
+    {
+        return health;
+    }
+    
+    public int getSpeed()
+    {
+        return speed;
+    }
+    
+    public int getDamage()
+    {
+        return damage;
+    }
+    
 }
