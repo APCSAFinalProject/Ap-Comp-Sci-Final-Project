@@ -6,15 +6,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Boss extends Actor
+public abstract class Boss extends Actor
 {
     private int health;
     private int damage;
     private int speed;
-    private boolean canDoDamage;
-    private int attackTimer;
-    private static int ATTACK_DISTANCE = 60;
-    private int attackCooldownTimer;
     /**
      * Constructor initializes all instance fields. For health, damage, and speed, it
      * takes in a value called points and distributes the total value of points between
@@ -53,18 +49,7 @@ public class Boss extends Actor
          */
         
         GreenfootImage img;
-        if(type == 0)
-        {
-            img = new GreenfootImage("Boss_0.png");
-        }
-        else if(type == 1)
-        {
-            img = new GreenfootImage("Boss_1.png");
-        }
-        else
-        {
-            img = new GreenfootImage("Boss_2.png");
-        }
+        img = new GreenfootImage("Boss" + type + ".png");
         
         int multiplier = 0;
         if(health >= damage && health >= speed)
@@ -96,6 +81,24 @@ public class Boss extends Actor
      */
     public void act() 
     {
-        // Add your action code here.
+        attack();
+        die();
+    }
+    
+    public abstract void attack();
+    
+    public void takeDamage(int dmg)
+    {
+        health -= damage;
+    }
+    
+    public void die()
+    {
+        if(health <= 0)
+        {
+            Player player = getWorld().getObjects(Player.class).get(0);
+            player.addMoney(50);
+            getWorld().removeObject(this);
+        }
     }
 }
