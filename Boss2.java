@@ -12,11 +12,16 @@ public class Boss2 extends Boss
     int speed;
     int damage;
     
+    /**
+     * Construct a Boss2.
+     * @param points The amount of points for the boss to have.
+     */
     public Boss2(int points)
     {
         super(points, 2);
         
     }
+    
     /**
      * Act - do whatever the Boss2 wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -25,4 +30,11 @@ public class Boss2 extends Boss
     {
         // Add your action code here.
     }    
+    
+    /**
+     * ATTACK SOMEONE COMMOENT THIS
+     */
+    public void attack()
+    {
+    }
 }

@@ -8,6 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Boss1 extends Boss
 {
+    /**
+     * Constructs a Boss1 object with a given amount of points.
+     * @param points the amount of points to use.
+     */
     public Boss1(int points)
     {
         super(points, 1);
@@ -20,5 +24,11 @@ public class Boss1 extends Boss
     public void act() 
     {
         // Add your action code here.
-    }    
+    }
+    
+    /**
+     * SOMEONE COMMENT THIS
+     */
+    public void attack()
+    {}
 }

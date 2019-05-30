@@ -169,7 +169,7 @@ public class Enemy extends Actor
      */
     public void takeDamage(int dmg)
     {
-        GreenfootSound enemyHit = new GreenfootSound("EnemyAttacked.mp3");
+        GreenfootSound enemyHit = new GreenfootSound("sounds/enemyAttacked.mp3");
         enemyHit.play();
         health -= dmg;
     }

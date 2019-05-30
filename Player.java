@@ -35,8 +35,8 @@ public class Player extends Actor
         balance = 0;
         canDoDamage = false;
         setImage(new GreenfootImage("images/player_0.png"));
-        dash = new GreenfootSound("Dash.mp3");
-        getHit = new GreenfootSound("PlayerAttacked.mp3");
+        dash = new GreenfootSound("sounds/dash.mp3");
+        getHit = new GreenfootSound("sounds/playerAttacked.mp3");
     }
     
     /**
@@ -74,7 +74,8 @@ public class Player extends Actor
      */
     public void enterShop()
     {
-        //setWorld()?
+        getWorld().setBackground("images/Shop.png");
+        //POINT LOGIC STUFF
     }
     
     /**
