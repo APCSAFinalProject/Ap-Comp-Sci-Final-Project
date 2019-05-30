@@ -295,6 +295,17 @@ public class MyWorld extends World
              */
             currentRoom = s.nextInt();
             updateImage(findConfig(findDoors(mapcode.get(currentRoom))));
+            if(mapcode.get(currentRoom).contains("B"))
+            {
+                addObject(new BossDoor(), 450, 150);
+            }
+            else if(getObjects(BossDoor.class).size() > 0)
+            {
+                for(BossDoor b : getObjects(BossDoor.class))
+                {
+                    removeObject(b);
+                }
+            }
         }
         else if(whichDoor == 1)
         {
@@ -303,6 +314,17 @@ public class MyWorld extends World
             s.useDelimiter("\\D+");
             currentRoom = s.nextInt();
             updateImage(findConfig(findDoors(mapcode.get(currentRoom))));
+            if(mapcode.get(currentRoom).contains("B"))
+            {
+                addObject(new BossDoor(), 450, 150);
+            }
+            else if(getObjects(BossDoor.class).size() > 0)
+            {
+                for(BossDoor b : getObjects(BossDoor.class))
+                {
+                    removeObject(b);
+                }
+            }
         }
         else if(whichDoor == 2)
         {
@@ -311,6 +333,17 @@ public class MyWorld extends World
             s.useDelimiter("\\D+");
             currentRoom = s.nextInt();
             updateImage(findConfig(findDoors(mapcode.get(currentRoom))));
+            if(mapcode.get(currentRoom).contains("B"))
+            {
+                addObject(new BossDoor(), 450, 150);
+            }
+            else if(getObjects(BossDoor.class).size() > 0)
+            {
+                for(BossDoor b : getObjects(BossDoor.class))
+                {
+                    removeObject(b);
+                }
+            }
         }
         else
         {
@@ -319,6 +352,17 @@ public class MyWorld extends World
             s.useDelimiter("\\D+");
             currentRoom = s.nextInt();
             updateImage(findConfig(findDoors(mapcode.get(currentRoom))));
+            if(mapcode.get(currentRoom).contains("B"))
+            {
+                addObject(new BossDoor(), 450, 150);
+            }
+            else if(getObjects(BossDoor.class).size() > 0)
+            {
+                for(BossDoor b : getObjects(BossDoor.class))
+                {
+                    removeObject(b);
+                }
+            }
         }
         if(!cleared[currentRoom])
         {
@@ -384,6 +428,22 @@ public class MyWorld extends World
         }
     }
     
+    public void enterBossRoom()
+    {
+        if(getObjects(Enemy.class).size() == 0)
+        {
+            Player a = getObjects(Player.class).get(0);
+            a.setLocation(300,500);
+            removeObject(getObjects(BossDoor.class).get(0));
+        }
+    }
+    
+    public void addBossDoor()
+    {
+        int rand = (int) (Math.random() * mapcode.size());
+        mapcode.set(rand, mapcode.get(rand) + "B");
+    }
+    
     public void clearLevel()
     {
         cleared[currentRoom] = true;
@@ -392,5 +452,18 @@ public class MyWorld extends World
     public boolean getCleared()
     {
         return cleared[currentRoom];
+    }
+    
+    public String getBossRoom()
+    {
+        String str = "";
+        for(String a : mapcode)
+        {
+            if(a.contains("B"))
+            {
+                str = a;
+            }
+        }
+        return str;
     }
 }

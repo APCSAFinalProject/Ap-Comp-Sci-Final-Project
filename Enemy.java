@@ -11,7 +11,6 @@ public class Enemy extends Actor
     private int health;
     private int damage;
     private int speed;
-    private Color col;
     private boolean canDoDamage;
     private int attackTimer;
     private static int ATTACK_DISTANCE = 60;
@@ -58,30 +57,30 @@ public class Enemy extends Actor
          * EX: health = 2, damage = 1, speed = 1 results in green = 255, blue = 127,
          * red = 127. 
          */
+        int multiplier = 0;
         if(health >= damage && health >= speed)
         {
-            green = 255;
-            red = (int) (((double) 255) * ((double) damage / health));
-            blue = (int) (((double) 255) * ((double) speed / health));
+            multiplier = 255 / health;
         }
         else if(speed >= damage && speed >= health)
         {
-            blue = 255;
-            red = (int) (((double) 255) * ((double) damage / speed));
-            green = (int) (((double) 255) * ((double) health / speed));
+            multiplier = 255 / speed;
         }
         else
         {
-            red = 255;
-            blue = (int) (((double) 255) * ((double) speed / damage));
-            green = (int) (((double) 255) * ((double) health / damage));
+            multiplier = 255 / damage;
         }
         
+        red = multiplier * damage;
+        green = multiplier * health;
+        blue = multiplier * speed;
         /*assigns the determined value to the col variable. Must find out how to set the
          * Enemy's color to col.
          */
         GreenfootImage img = new GreenfootImage("images/enemy_0.png");
-        col = new Color(red, green, blue);
+        Color col = new Color(red, green, blue, 100);
+        img.setColor(col);
+        img.fillOval(0, 0, img.getWidth(), img.getHeight());
         /* currently have no clue how to actually change colors, fill just
          * turns it into a square of whatever color col is.
          */
