@@ -70,6 +70,15 @@ public class Player extends Actor
     }
     
     /**
+     * Gets the player's health.
+     * @return Player health
+     */
+    public int getHealth()
+    {
+        return health;
+    }
+    
+    /**
      * A method that runs at all times, excluding when the player is doing a dash
      * attack. It gets the position of the mouse on the screen, and points the
      * player towards the mouse.
