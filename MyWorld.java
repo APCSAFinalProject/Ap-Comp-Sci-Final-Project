@@ -448,6 +448,7 @@ public class MyWorld extends World
     {
         if(getObjects(Enemy.class).size() == 0)
         {
+            setBackground("images/BossRoom.png");
             Player a = getObjects(Player.class).get(0);
             a.setLocation(300,500);
             removeObject(getObjects(BossDoor.class).get(0));

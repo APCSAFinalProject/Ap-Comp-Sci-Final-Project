@@ -18,7 +18,7 @@ public class Boss0 extends Boss
     public Boss0(int points)
     {
         super(points, 0);
-        
+        speed+=1;
     }    
     
     public void act()
