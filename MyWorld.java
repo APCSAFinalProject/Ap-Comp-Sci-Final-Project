@@ -485,7 +485,7 @@ public class MyWorld extends World
     
     public void testShopRoom()
     {
-        GreenfootImage img = new GreenfootImage("shop.png");
+        GreenfootImage img = new GreenfootImage("Shop.png");
         Player player = getObjects(Player.class).get(0);
         
         setBackground(img);
