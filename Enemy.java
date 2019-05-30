@@ -169,6 +169,8 @@ public class Enemy extends Actor
      */
     public void takeDamage(int dmg)
     {
+        GreenfootSound enemyHit = new GreenfootSound("EnemyAttacked.mp3");
+        enemyHit.play();
         health -= dmg;
     }
     
@@ -185,7 +187,9 @@ public class Enemy extends Actor
             List<Player> players = getWorld().getObjects(Player.class);
             for(Player a : players)
             {
-                a.addMoney(10);
+                int stats = health + damage + speed;
+                int rand = (int) (Math.random() * stats) - (stats / 2);
+                a.addMoney(stats + rand);
             }
             getWorld().removeObject(this);
         }
