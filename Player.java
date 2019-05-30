@@ -10,6 +10,7 @@ public class Player extends Actor
 {
     private GreenfootSound dash;
     private GreenfootSound getHit;
+    private boolean inShop;
     private int speed;
     private int maxHealth;
     private int damage;
@@ -71,36 +72,95 @@ public class Player extends Actor
         die();
     }
     
+   
+    public void shop()
+    {
+        if(inShop)
+        {
+            boolean purchaseReady = true;
+            if(purchaseReady == true && this.getX() < 200 && this.getY() < 100)
+            {
+                removeMoney(10);
+                levelUp(0, 1);
+                purchaseReady = false;
+            }
+            else if(purchaseReady == true && this.getX() > 200 && this.getX() < 400 
+                && this.getY() < 100)
+            {
+                removeMoney(10);
+                levelUp(1, 1);
+                purchaseReady = false;
+            }
+            else if(purchaseReady == true && this.getX() > 400 && this.getX() < 600
+                && this.getY() < 100)
+            {
+                removeMoney(10);
+                levelUp(2, 1);
+                purchaseReady = false;
+            }
+
+            if(purchaseReady == false && this.getY() > 100)
+            {
+                purchaseReady = true;
+            }
+        }
+    }
+    
     /**
-     * Called to enter the shop room.
+     * Called to declare that the player has entered the shop.
      */
     public void enterShop()
     {
-        getWorld().setBackground("images/Shop.png");
-        //POINT LOGIC STUFF
+        inShop = true;
     }
     
     /**
-     * Checks if the player is in the shop.
-     * @return True if the player is in the shop.
+     * Called when leaving shop to declare that the player is no longer in the shop.
+     */
+    public void leaveShop()
+    {
+        inShop = false;
+    }
+    
+    /**
+     * Checks if the player is in the shop
+     * 
+     * @return True if in shop.
      */
     public boolean isInShop()
     {
-        if(getWorld().getBackground().equals(new GreenfootImage("images/Shop.png")))
-        {
-            return true;
-        }
-        return false;
+        return inShop;
     }
     
     /**
-     * Gets the player's health.
-     * @return Player health
+     * Gets the player's health
+     * 
+     * @return health
      */
     public int getHealth()
     {
         return health;
     }
+    
+    /**
+     * Gets the players speed.
+     * 
+     * @return speed
+     */
+    public int getSpeed()
+    {
+        return speed;
+    }
+    
+    /**
+     * Gets the damage.
+     * @return damage
+     */
+    public int getDamage()
+    {
+        return damage;
+    }
+
     
     /**
      * A method that runs at all times, excluding when the player is doing a dash
