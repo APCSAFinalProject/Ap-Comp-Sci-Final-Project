@@ -52,6 +52,7 @@ public class Player extends Actor
             canDoDamage = false;
             followMouse();
             takeInput();
+            
             if(attackCooldownTimer > 0)
             {
                 attackCooldownTimer--;
@@ -61,6 +62,7 @@ public class Player extends Actor
         {
             move(speed * 3);
             attackTimer--;
+            setImage(new GreenfootImage("images/player_0.png"));
         }
         if(!((MyWorld) getWorld()).getCleared() && getWorld().getObjects(Enemy.class).size() == 0)
         {
@@ -148,6 +150,7 @@ public class Player extends Actor
         if(Greenfoot.isKeyDown("space") && attackCooldownTimer == 0)
         {
             dash.play();
+            setImage(new GreenfootImage("images/player_1.png"));
             attackTimer = ATTACK_DISTANCE / (speed * 3);
             canDoDamage =  true;
             attackCooldownTimer = ATTACK_COOLDOWN;
@@ -236,6 +239,7 @@ public class Player extends Actor
             Enemy a = (Enemy) getOneIntersectingObject(Enemy.class);
             a.takeDamage(damage);
             canDoDamage = false;
+            
         }
     }
     
@@ -335,6 +339,9 @@ public class Player extends Actor
         return balance;
     }
     
+    /**
+     * JAVA DOC THIS
+     */
     public void advance()
     {
         if(getWorld().getObjects(Enemy.class).size() == 0)
