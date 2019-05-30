@@ -38,8 +38,8 @@ public class MyWorld extends World
         if(getObjects(Player.class).size() != 0)
         {
             Player player = getObjects(Player.class).get(0);
-            String healthDisplay = "Health: " + player.getHealth();
-            String balanceDisplay = "Gold: " + player.getBalance();
+            String healthDisplay = "Health: " + Math.abs(player.getHealth());
+            String balanceDisplay = "Gold: " + Math.abs(player.getBalance());
         
             int healthDisplayX = 5 * healthDisplay.length();
             int balanceDisplayX = 5 * balanceDisplay.length();;

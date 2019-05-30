@@ -84,7 +84,7 @@ public class Player extends Actor
      */
     public boolean isInShop()
     {
-        if(getWorld().getBackground().equals(new GreenfootImage("images/shop.png")))
+        if(getWorld().getBackground().equals(new GreenfootImage("images/Shop.png")))
         {
             return true;
         }
