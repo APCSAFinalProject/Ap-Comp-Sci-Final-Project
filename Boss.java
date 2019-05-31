@@ -125,6 +125,7 @@ public abstract class Boss extends Actor
     }
     
     /**
+     * Gets the bosses current health.
      * @returns the boss's health
      */
     public int getHealth()
@@ -133,6 +134,7 @@ public abstract class Boss extends Actor
     }
     
     /**
+     * Gets the boss's speed
      * @returns the boss's speed
      */
     public int getSpeed()
@@ -141,6 +143,7 @@ public abstract class Boss extends Actor
     }
     
     /**
+     * Getsa the bosses damage.
      * @returns the boss's damage
      */
     public int getDamage()
