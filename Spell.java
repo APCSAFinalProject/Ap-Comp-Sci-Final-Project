@@ -4,6 +4,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * The projectile that Boss0 shoots at the player.
  * Has a certain amount of damage and a direction it
  * moves in.
+ *
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
+ *
  */
 public class Spell extends Actor
 {

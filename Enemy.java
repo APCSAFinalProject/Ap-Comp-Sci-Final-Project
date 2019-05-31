@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Write a description of class Enemy here.
+ * A basic enemy Class with randomized stats and styles.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
  */
 public class Enemy extends Actor
 {

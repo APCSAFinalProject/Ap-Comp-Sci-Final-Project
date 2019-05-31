@@ -5,6 +5,9 @@ import java.util.*;
  * Works identically to the normal enemy class. The only difference
  * is that this boss will always have higher stats than the enemies
  * that the player faced on this level.
+ *
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
  */
 public class Boss1 extends Boss
 {

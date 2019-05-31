@@ -4,6 +4,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * The explosion created by Boss2. The explosion
  * image gets larger until it reaches a set maximum
  * size, then removes itself.
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
  */
 public class Explosion extends Actor
 {

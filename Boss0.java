@@ -3,6 +3,9 @@ import java.util.*;
 /**
  * This boss is a ranged attack boss. It shoots out spells
  * at the player while moving around randomly.
+ *
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
  */
 public class Boss0 extends Boss
 {

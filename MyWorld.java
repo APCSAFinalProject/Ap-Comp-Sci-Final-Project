@@ -3,15 +3,17 @@ import java.util.*;
 /**
  * Write a description of class MyWorld here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
  */
 public class MyWorld extends World
 {
     private ArrayList<String> mapcode;
+
     private boolean[] cleared;
     private int currentRoom;
     private int level;
+
     private GreenfootSound backgroundMusic;
     /**
      * Constructor for objects of class MyWorld. Generates the map, starts the music, and adds initial enemies.

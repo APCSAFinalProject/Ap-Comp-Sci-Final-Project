@@ -6,6 +6,9 @@ import java.util.*;
  * The only differences are that this boss spawns in an explosion instead
  * of a spell, and always moves towards the player. It also moves slowly
  * and attacks less frequently than other bosses.
+ *
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
  */
 public class Boss2 extends Boss
 {

@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Boss here.
+ * A regular boss, to be used by Boss enemy subclasses
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
  */
 public abstract class Boss extends Actor
 {

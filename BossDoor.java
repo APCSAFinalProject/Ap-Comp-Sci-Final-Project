@@ -1,10 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class BossDoor here.
+ * A special door entering the boss room.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Aaron Saporito, Adam Rutledge, Aiden G, Luke Arsenalt, and Anthony
+ * @version 1.1
  */
 public class BossDoor extends Actor
 {
