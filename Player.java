@@ -10,6 +10,8 @@ public class Player extends Actor
 {
     private GreenfootSound dash;
     private GreenfootSound getHit;
+    private GreenfootSound gameover;
+    private GreenfootSound bgm;
     private boolean inShop;
     private int speed;
     private int maxHealth;
@@ -18,9 +20,11 @@ public class Player extends Actor
     private int attackTimer;
     private int attackCooldownTimer;
     private int balance;
+    private int volume;
     private boolean canDoDamage;
     private static int ATTACK_DISTANCE = 70;
     private static int ATTACK_COOLDOWN = 60;
+    
     /**
      * The only constructor for player is a non-input constructor. A player
      * is always created at the start of the game with the same stats.
@@ -35,9 +39,12 @@ public class Player extends Actor
         attackCooldownTimer = 0;
         balance = 0;
         canDoDamage = false;
-        setImage(new GreenfootImage("images/player_0.png"));
-        dash = new GreenfootSound("sounds/dash.mp3");
-        getHit = new GreenfootSound("sounds/playerAttacked.mp3");
+        dash = new GreenfootSound("Dash.mp3");
+        getHit = new GreenfootSound("PlayerAttacked.mp3");
+        gameover = new GreenfootSound("Gameover.mp3");
+        bgm = new GreenfootSound("Bgm.mp3");
+        volume = 50;
+        bgm.setVolume(volume);
     }
     
     /**
@@ -46,6 +53,7 @@ public class Player extends Actor
      */
     public void act() 
     {
+        bgm.playLoop();
         hit();
         advance();
         if(attackTimer == 0)
@@ -312,6 +320,8 @@ public class Player extends Actor
         if(health <= 0)
         {
             getWorld().removeObject(this);
+            bgm.stop();
+            gameover.play();
         }
     }
     
