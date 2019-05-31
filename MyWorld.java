@@ -646,20 +646,18 @@ public class MyWorld extends World
      */
     public void deathSequence()
     {
+        setBackground(new GreenfootImage("images/DeathScreen.png"));
+        
         List<Actor> actors = getObjects(Actor.class);
-        for(Actor a : actors)
-        {
-            removeObject(a);
-        }
-        GreenfootImage deathScreen = new GreenfootImage("DeathScreen.png");
-        setBackground(deathScreen);
+        removeObjects(actors);
+
         String levelDisplay = "Level: " + level;
         showText("", 55, 585);
         showText("", 55, 565);
         showText("", 55, 545);
         showText(levelDisplay, 300, 585);
         backgroundMusic.stop();
-        GreenfootSound deathTune = new GreenfootSound("Gameover.mp3");
+        GreenfootSound deathTune = new GreenfootSound("sounds/Gameover.mp3");
         deathTune.play();
     }
 }
