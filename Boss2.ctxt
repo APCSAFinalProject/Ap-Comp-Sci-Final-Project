@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Boss2
+comment0.text=\r\n\ Boss2\ is\ an\ area\ of\ effect\ type\ boss.\ It\ works\ similarly\ to\ Boss0\r\n\ by\ spawning\ in\ an\ entity\ every\ time\ it\ attacks\ and\ constantly\ moves.\r\n\ The\ only\ differences\ are\ that\ this\ boss\ spawns\ in\ an\ explosion\ instead\r\n\ of\ a\ spell,\ and\ always\ moves\ towards\ the\ player.\ It\ also\ moves\ slowly\r\n\ and\ attacks\ less\ frequently\ than\ other\ bosses.\r\n
+comment1.params=points
+comment1.target=Boss2(int)
+comment1.text=\r\n\ Construct\ a\ Boss2.\r\n\ @param\ points\ determines\ the\ stats\ of\ the\ boss\ randomly\r\n\ through\ the\ superclass\ Boss.\r\n
+comment2.params=
+comment2.target=void\ attack()
+comment2.text=\r\n\ Works\ similarly\ to\ enemy\ and\ Boss0.\ It\ has\ a\ timer\ that\ counts\r\n\ down\ to\ 0\ from\ TIMER_CONSTANT/speed.\ When\ it\ hits\ 0,\ it\ changes\r\n\ its\ direction\ to\ face\ the\ player,\ and\ sets\ off\ an\ explosion\r\n\ based\ on\ the\ damage\ stat\ of\ the\ Boss2.\r\n
+numComments=3

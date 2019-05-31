@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Explosion
+comment0.text=\r\n\ The\ explosion\ created\ by\ Boss2.\ The\ explosion\r\n\ image\ gets\ larger\ until\ it\ reaches\ a\ set\ maximum\r\n\ size,\ then\ removes\ itself.\r\n
+comment1.params=damage
+comment1.target=Explosion(int)
+comment1.text=\r\n\ Constructs\ an\ explosion.\r\n\ @param\ damage\ how\ much\ damage\ the\ explosion\ deals\ to\r\n\ the\ player\ on\ contact.\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Deals\ with\ the\ growing\ of\ the\ explosion.\ Every\ tick\ the\r\n\ explosion\ increases\ in\ size\ by\ 10%.\ Also\ calls\r\n\ hit\ and\ removes\ itself\ when\ it\ gets\ too\ big.\r\n
+comment3.params=
+comment3.target=void\ hit()
+comment3.text=\r\n\ Deals\ damage\ to\ the\ player\ when\ it\ hits\ it.\ When\ called,\r\n\ it\ sets\ hasHit\ to\ true,\ and\ then\ will\ never\ be\ able\ to\ get\r\n\ called\ again.\ This\ means\ the\ player\ does\ not\ get\ dealt\ more\r\n\ damage\ than\ just\ a\ single\ hit.\r\n
+numComments=4

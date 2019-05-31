@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Boss1
+comment0.text=\r\n\ Works\ identically\ to\ the\ normal\ enemy\ class.\ The\ only\ difference\r\n\ is\ that\ this\ boss\ will\ always\ have\ higher\ stats\ than\ the\ enemies\r\n\ that\ the\ player\ faced\ on\ this\ level.\r\n
+comment1.params=points
+comment1.target=Boss1(int)
+comment1.text=\r\n\ Constructs\ a\ Boss1\ object\ with\ a\ given\ amount\ of\ points.\r\n\ @param\ points\ determines\ the\ stats\ of\ the\ boss\ randomly\r\n\ through\ the\ superclass\ Boss.\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Uses\ the\ superclass's\ act\ method,\ but\ also\ adds\r\n\ in\ the\ hit\ method\ which\ is\ necessary\ for\ this\ boss\r\n\ to\ function.\r\n
+comment3.params=
+comment3.target=void\ attack()
+comment3.text=\r\n\ Identical\ to\ the\ enemy's\ attack\ method.\ Moves\ forward\ for\r\n\ a\ certain\ amount\ of\ time\ while\ attacking,\ then\ waits\r\n\ for\ a\ period\ of\ time\ while\ not\ attacking.\r\n
+comment4.params=
+comment4.target=void\ hit()
+comment4.text=\r\n\ Class\ that\ allows\ the\ boss\ to\ directly\ hit\ the\r\n\ player\ when\ it\ makes\ contact\ with\ it.\ Identical\r\n\ to\ the\ hit\ method\ in\ enemy.\r\n
+numComments=5

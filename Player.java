@@ -10,9 +10,9 @@ public class Player extends Actor
 {
     private GreenfootSound dash;
     private GreenfootSound getHit;
-    private GreenfootSound gameover;
-    private GreenfootSound bgm;
+    
     private boolean inShop;
+    private boolean purchaseReady;
     private int speed;
     private int maxHealth;
     private int damage;
@@ -20,11 +20,9 @@ public class Player extends Actor
     private int attackTimer;
     private int attackCooldownTimer;
     private int balance;
-    private int volume;
     private boolean canDoDamage;
     private static int ATTACK_DISTANCE = 70;
     private static int ATTACK_COOLDOWN = 60;
-    
     /**
      * The only constructor for player is a non-input constructor. A player
      * is always created at the start of the game with the same stats.
@@ -37,14 +35,12 @@ public class Player extends Actor
         health = maxHealth;
         attackTimer = 0;
         attackCooldownTimer = 0;
+        purchaseReady = false;
         balance = 0;
         canDoDamage = false;
-        dash = new GreenfootSound("Dash.mp3");
-        getHit = new GreenfootSound("PlayerAttacked.mp3");
-        gameover = new GreenfootSound("Gameover.mp3");
-        bgm = new GreenfootSound("Bgm.mp3");
-        volume = 50;
-        bgm.setVolume(volume);
+        setImage(new GreenfootImage("images/player_0.png"));
+        dash = new GreenfootSound("sounds/Dash.mp3");
+        getHit = new GreenfootSound("sounds/PlayerAttacked.mp3");
     }
     
     /**
@@ -53,9 +49,12 @@ public class Player extends Actor
      */
     public void act() 
     {
-        bgm.playLoop();
         hit();
-        advance();
+        if(!inShop)
+        {
+            advance();
+        }
+        shop();
         if(attackTimer == 0)
         {
             canDoDamage = false;
@@ -80,29 +79,35 @@ public class Player extends Actor
         die();
     }
     
-   
+    
+    /**
+     * Method used for when the player is in the shop. inShop is true when
+     * the player is in the shop. If it is true, this method detects if the
+     * player has stepped onto one of the three purchase locations outlined
+     * by colors and text in the background image. If they do, it increments
+     * that stat in the player and removes 50 from the player's balance.
+     */
     public void shop()
     {
         if(inShop)
         {
-            boolean purchaseReady = true;
-            if(purchaseReady == true && this.getX() < 200 && this.getY() < 100)
+            if(purchaseReady == true && this.getX() < 200 && this.getY() < 100 && balance >= 50)
             {
-                removeMoney(10);
+                removeMoney(50);
                 levelUp(0, 1);
                 purchaseReady = false;
             }
             else if(purchaseReady == true && this.getX() > 200 && this.getX() < 400 
-                && this.getY() < 100)
+                && this.getY() < 100 && balance >= 50)
             {
-                removeMoney(10);
+                removeMoney(50);
                 levelUp(1, 1);
                 purchaseReady = false;
             }
             else if(purchaseReady == true && this.getX() > 400 && this.getX() < 600
-                && this.getY() < 100)
+                && this.getY() < 100 && balance >= 50)
             {
-                removeMoney(10);
+                removeMoney(50);
                 levelUp(2, 1);
                 purchaseReady = false;
             }
@@ -110,6 +115,12 @@ public class Player extends Actor
             if(purchaseReady == false && this.getY() > 100)
             {
                 purchaseReady = true;
+            }
+            
+            if(getX() > 200 && getX() < 400 && getY() > 500)
+            {
+                ((MyWorld) getWorld()).nextLevel();
+                inShop = false;
             }
         }
     }
@@ -145,15 +156,20 @@ public class Player extends Actor
      * 
      * @return health
      */
-    public int getHealth()
+    public int getCurrentHealth()
     {
         return health;
+    }
+    
+    public int getMaxHealth()
+    {
+        return maxHealth;
     }
     
     /**
      * Gets the players speed.
      * 
-     * @return speed
+     * @return player's speed
      */
     public int getSpeed()
     {
@@ -161,8 +177,8 @@ public class Player extends Actor
     }
     
     /**
-     * Gets the damage.
-     * @return damage
+     * Gets the damage the player deals.
+     * @return player's damage
      */
     public int getDamage()
     {
@@ -302,12 +318,29 @@ public class Player extends Actor
      */
     public void hit()
     {
-        if(canDoDamage && isTouching(Enemy.class))
+        if(canDoDamage)
         {
-            Enemy a = (Enemy) getOneIntersectingObject(Enemy.class);
-            a.takeDamage(damage);
-            canDoDamage = false;
-            
+            if(isTouching(Enemy.class))
+            {
+                Enemy a = (Enemy) getOneIntersectingObject(Enemy.class);
+                a.takeDamage(damage);
+                canDoDamage = false;
+            }
+            else if(isTouching(Boss0.class))
+            {
+                Boss0 boss = (Boss0) getOneIntersectingObject(Boss0.class);
+                boss.takeDamage(damage);
+            }
+            else if(isTouching(Boss1.class))
+            {
+                Boss1 boss = (Boss1) getOneIntersectingObject(Boss1.class);
+                boss.takeDamage(damage);
+            }
+            else if(isTouching(Boss2.class))
+            {
+                Boss2 boss = (Boss2) getOneIntersectingObject(Boss2.class);
+                boss.takeDamage(damage);
+            }
         }
     }
     
@@ -319,9 +352,7 @@ public class Player extends Actor
     {
         if(health <= 0)
         {
-            getWorld().removeObject(this);
-            bgm.stop();
-            gameover.play();
+            ((MyWorld) getWorld()).deathSequence();
         }
     }
     
@@ -347,8 +378,6 @@ public class Player extends Actor
         {
             damage += howMuch;
         }
-        
-        this.heal();
     }
     
     /**
@@ -402,7 +431,7 @@ public class Player extends Actor
     
     /**
      * Used to access the player's balance.
-     * @returns the player's balance.
+     * @return the player's balance.
      */
     public int getBalance()
     {
@@ -410,7 +439,10 @@ public class Player extends Actor
     }
     
     /**
-     * JAVA DOC THIS
+     * Used to put the player into the next room. First checks
+     * to see if there are no remaining enemies. If so, it determines
+     * which door the player is standing on with doorNum(). If the player
+     * is standing on a door, it brings the player to wherever that door leads.
      */
     public void advance()
     {
@@ -441,6 +473,12 @@ public class Player extends Actor
         }
     }
     
+    /**
+     * Finds what door the player is standing in based on it's
+     * coordinates.
+     * @return a value between 0 and 3 representing a door, or
+     * -1 of the player is not standing on a door.
+     */
     public int doorNum()
     {
         int door = -1;

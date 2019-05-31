@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=BossDoor
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ BossDoor\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=BossDoor()
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Very\ simple\ class.\ If\ the\ player\ touches\ the\ door,\ it\ calls\ the\ method\r\n\ enterBossRoom\ from\ MyWorld.\ enterBossRoom\ does\ the\ difficult\ work\r\n\ like\ determining\ if\ the\ player\ is\ allowed\ to\ enter\ yet.\r\n
+numComments=3

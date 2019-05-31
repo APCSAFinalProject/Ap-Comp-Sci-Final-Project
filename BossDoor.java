@@ -13,11 +13,15 @@ public class BossDoor extends Actor
         setImage("BossDoor.png");
     }
     /**
-     * Act - do whatever the BossDoor wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Very simple class. If the player touches the door, it calls the method
+     * enterBossRoom from MyWorld. enterBossRoom does the difficult work
+     * like determining if the player is allowed to enter yet.
      */
     public void act() 
     {
-        // Add your action code here.
+        if(isTouching(Player.class))
+        {
+            ((MyWorld)getWorld()).enterBossRoom();
+        }
     }    
 }

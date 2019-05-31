@@ -1,36 +1,40 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.*;
 /**
- * Write a description of class Boss0 here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * This boss is a ranged attack boss. It shoots out spells
+ * at the player while moving around randomly.
  */
 public class Boss0 extends Boss
 {
     private int health;
     private int damage;
     private int speed;
-    private boolean canDoDamage;
-    private int attackTimer;
-    private static int ATTACK_DISTANCE = 60;
+    private static int TIMER_CONSTANT = 60;
     private int attackCooldownTimer;
+    private Color col;
+    
+    /**
+     * @param points determine the stats of the boss.
+     */
     public Boss0(int points)
     {
         super(points, 0);
-        speed+=1;
+        health = super.getHealth();
+        damage = super.getDamage();
+        speed = super.getSpeed();
+        col = new Color(super.getRed(), super.getGreen(), super.getBlue(), 100);
     }    
     
-    public void act()
-    {
-        super.act();
-        hit();
-    }
-    
+    /**
+     * Similar to the enemy class's attack, except instead of
+     * using the rotation value to set rotation and move towards
+     * the player, it uses it to shoot spells in the player's 
+     * direction. It moves randomly and does not stop moving.
+     */
     public void attack()
     {
         List<Player> players = getWorld().getObjects(Player.class);
-        if(attackTimer == 0 && attackCooldownTimer ==0 && players.size() > 0)
+        if(attackCooldownTimer == 0 && players.size() > 0)
         {
             Player a = players.get(0);
             //Distances between the two, will be used to get an angle.
@@ -40,40 +44,30 @@ public class Boss0 extends Boss
             double angleRadians = Math.atan2(yDist, xDist); 
             //Converts the radians into usable integer degrees
             int angleDegrees = (int) (angleRadians * 180 / Math.PI);
-            this.setRotation(angleDegrees);
-            /*By dividing the preset attack distance by speed, you get (rougly) how
-             * many times the actor must move speed pixels to go ATTACK_DISTANCE pixels.
-             * This makes sure that no matter what speed the enemy goes, it will always
-             * lunge about ATTACK_DISTANCE pixels.
-             */
-            attackTimer = ATTACK_DISTANCE / speed;
-            //Sets a timer that will be used for waiting after the attack is over
-            int attackCooldown = 50 + (int) (Math.random() * 20);
-            attackCooldownTimer = attackCooldown;
-            //Sets the enemy so it is allowed to deal damage when it touches a player.
-            canDoDamage = true;
+            
+            getWorld().addObject(new Spell(angleDegrees, damage), getX(), getY());
+            this.setRotation((int) (Math.random() * 360));
+            GreenfootImage img = new GreenfootImage("Boss0Attack.png");
+            img.setColor(col);
+            img.fillOval(0, 0, img.getWidth(), img.getHeight());
+            setImage(img);
+            
+            attackCooldownTimer = TIMER_CONSTANT / speed;
+            
         }
         //This statement runs when the enemy is mid-attack. Just moves.
-        else if(attackTimer > 0)
-        {
-            move(speed);
-            attackTimer--;
-        }
-        //This runs after the attack, enemy cools down and cannot deal damage.
         else if(attackCooldownTimer > 0)
         {
+            move(speed);
             attackCooldownTimer--;
-            canDoDamage = false;
         }
-    }
-    
-    public void hit()
-    {
-        if(canDoDamage && isTouching(Player.class))
+        
+        if(attackCooldownTimer < (TIMER_CONSTANT / speed) - 18)
         {
-            Player a = (Player) getOneIntersectingObject(Player.class);
-            a.takeDamage(damage);
-            canDoDamage = false;
+            GreenfootImage img = new GreenfootImage("Boss0.png");
+            img.setColor(col);
+            img.fillOval(0, 0, img.getWidth(), img.getHeight());
+            setImage(img);
         }
     }
 }

@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Spell
+comment0.text=\r\n\ The\ projectile\ that\ Boss0\ shoots\ at\ the\ player.\r\n\ Has\ a\ certain\ amount\ of\ damage\ and\ a\ direction\ it\r\n\ moves\ in.\r\n
+comment1.params=rotation\ damage
+comment1.target=Spell(int,\ int)
+comment1.text=\r\n\ Constructs\ a\ spell.\r\n\ @param\ rotation\ what\ direction\ the\ spell\ will\ move\ in\r\n\ @param\ damage\ how\ much\ damage\ the\ spell\ does\ to\ the\ player\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Moves\ 2,\ calls\ hit,\ and\ calls\ expire\ every\ tick.\r\n
+comment3.params=
+comment3.target=void\ hit()
+comment3.text=\r\n\ Detects\ if\ it\ is\ touching\ the\ player,\ if\ so\ it\r\n\ deals\ damage.\r\n
+comment4.params=
+comment4.target=void\ expire()
+comment4.text=\r\n\ Detects\ if\ it\ is\ in\ a\ position\ where\ the\ spell\ should\r\n\ disappear.\ This\ is\ when\ it\ is\ touching\ the\ player\ or\r\n\ when\ it\ hits\ a\ wall.\ If\ it\ is\ touching\ a\ player,\ hit\r\n\ is\ called\ before\ expire\ so\ damage\ is\ dealt\ and\ then\r\n\ the\ spell\ removes\ itself.\r\n
+numComments=5

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Boss0
+comment0.text=\r\n\ This\ boss\ is\ a\ ranged\ attack\ boss.\ It\ shoots\ out\ spells\r\n\ at\ the\ player\ while\ moving\ around\ randomly.\r\n
+comment1.params=points
+comment1.target=Boss0(int)
+comment1.text=\r\n\ @param\ points\ determine\ the\ stats\ of\ the\ boss.\r\n
+comment2.params=
+comment2.target=void\ attack()
+comment2.text=\r\n\ Similar\ to\ the\ enemy\ class's\ attack,\ except\ instead\ of\r\n\ using\ the\ rotation\ value\ to\ set\ rotation\ and\ move\ towards\r\n\ the\ player,\ it\ uses\ it\ to\ shoot\ spells\ in\ the\ player's\ \r\n\ direction.\ It\ moves\ randomly\ and\ does\ not\ stop\ moving.\r\n
+numComments=3
