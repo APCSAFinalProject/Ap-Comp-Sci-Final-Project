@@ -608,8 +608,8 @@ public class MyWorld extends World
         if(player.isInShop())
         {
             showText("Current Health: " + player.getMaxHealth(), 100, 120);
-            showText("Current Speed: " + player.getSpeed(), 300, 120);
-            showText("Current Damage: " + player.getDamage(), 500, 120);
+            showText("Current Speed: " + player.getSpeed(), 300, 150);
+            showText("Current Damage: " + player.getDamage(), 450, 120);
         }
         else
         {
