@@ -614,8 +614,8 @@ public class MyWorld extends World
         else
         {
             showText("", 100, 120);
-            showText("", 300, 120);
-            showText("", 500, 120);
+            showText("", 300, 150);
+            showText("", 450, 120);
         }
     }
     
