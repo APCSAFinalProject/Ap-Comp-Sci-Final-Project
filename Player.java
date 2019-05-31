@@ -33,7 +33,7 @@ public class Player extends Actor
     {
         speed = 3;
         maxHealth = 5;
-        damage = 5;
+        damage = 3;
         health = maxHealth;
         attackTimer = 0;
         attackCooldownTimer = 0;
