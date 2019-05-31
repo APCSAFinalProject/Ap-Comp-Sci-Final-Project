@@ -13,6 +13,7 @@ public class Player extends Actor
     
     private boolean inShop;
     private boolean purchaseReady;
+    private boolean canDoDamage;
     private int speed;
     private int maxHealth;
     private int damage;
@@ -20,9 +21,10 @@ public class Player extends Actor
     private int attackTimer;
     private int attackCooldownTimer;
     private int balance;
-    private boolean canDoDamage;
+    
     private static int ATTACK_DISTANCE = 70;
     private static int ATTACK_COOLDOWN = 60;
+
     /**
      * The only constructor for player is a non-input constructor. A player
      * is always created at the start of the game with the same stats.
@@ -79,6 +81,102 @@ public class Player extends Actor
         die();
     }
     
+    /**
+     * Gets the player's health
+     * 
+     * @return health
+     */
+    public int getCurrentHealth()
+    {
+        return health;
+    }
+    
+    /**
+     *Gets the players maximum health.
+     *@return the max health.
+     */
+    public int getMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    /**
+     * A full heal of the player. Sets health back to maximum.
+     */
+    public void heal()
+    {
+        health = maxHealth;
+    }
+
+   /**
+     * A heal for a certain amount of the player. Adds that amount to the current health,
+     * if health is at maximum it only goes to the maxHealth value.
+     * 
+     * @param amountHealed The amount to heal
+     */
+    public void heal(int amountHealed)
+    {
+        health = Math.max(health + amountHealed, maxHealth);
+    }
+    
+    /**
+     * Only called by the Enemy class. Subtracts an amount of damage from the Player's health.
+     * 
+     * @param dmg The amount of damage to take
+     */
+    public void takeDamage(int dmg)
+    {
+        health -= dmg;
+        getHit.play();
+    }
+
+    /**
+     * Gets the players speed.
+     * 
+     * @return player's speed
+     */
+    public int getSpeed()
+    {
+        return speed;
+    }
+    
+    /**
+     * Gets the damage the player deals.
+     * @return player's damage
+     */
+    public int getDamage()
+    {
+        return damage;
+    }
+
+    /**
+     * Adds money to the player's balance.
+     * @param amount the amount of money to add to the player's balance.
+     */
+    public void addMoney(int amount)
+    {
+        balance += amount;
+    }
+
+    /**
+     * Takes money out of the player's balance. Can make balance negative,
+     * but the classes calling removeMoney will prevent this from happening.
+     * @param amount the amount of money removed from player's balance
+     */
+    public void removeMoney(int amount)
+    {
+        balance -= amount;
+    }
+    
+    
+    /**
+     * Used to access the player's balance.
+     * @return the player's balance.
+     */
+    public int getBalance()
+    {
+        return balance;
+    }
     
     /**
      * Method used for when the player is in the shop. inShop is true when
@@ -151,40 +249,6 @@ public class Player extends Actor
         return inShop;
     }
     
-    /**
-     * Gets the player's health
-     * 
-     * @return health
-     */
-    public int getCurrentHealth()
-    {
-        return health;
-    }
-    
-    public int getMaxHealth()
-    {
-        return maxHealth;
-    }
-    
-    /**
-     * Gets the players speed.
-     * 
-     * @return player's speed
-     */
-    public int getSpeed()
-    {
-        return speed;
-    }
-    
-    /**
-     * Gets the damage the player deals.
-     * @return player's damage
-     */
-    public int getDamage()
-    {
-        return damage;
-    }
-
     
     /**
      * A method that runs at all times, excluding when the player is doing a dash
@@ -209,7 +273,7 @@ public class Player extends Actor
      * Controls all button click input. This includes directional keys for
      * movement and the key to lunge attack. 
      */
-    public void takeInput()
+    public void takeInput(
     {
         if(Greenfoot.isKeyDown("a") && !Greenfoot.isKeyDown("d"))
         {
@@ -378,64 +442,6 @@ public class Player extends Actor
         {
             damage += howMuch;
         }
-    }
-    
-    /**
-     * A full heal of the player. Sets health back to maximum.
-     */
-    public void heal()
-    {
-        health = maxHealth;
-    }
-    
-    /**
-     * A heal for a certain amount of the player. Adds that amount to the current health,
-     * if health is at maximum it only goes to the maxHealth value.
-     * 
-     * @param amountHealed The amount to heal
-     */
-    public void heal(int amountHealed)
-    {
-        health = Math.max(health + amountHealed, maxHealth);
-    }
-    
-    /**
-     * Only called by the Enemy class. Subtracts an amount of damage from the Player's health.
-     * 
-     * @param dmg The amount of damage to take
-     */
-    public void takeDamage(int dmg)
-    {
-        health -= dmg;
-        getHit.play();
-    }
-    
-    /**
-     * Takes money out of the player's balance. Can make balance negative,
-     * but the classes calling removeMoney will prevent this from happening.
-     * @param amount the amount of money removed from player's balance
-     */
-    public void removeMoney(int amount)
-    {
-        balance -= amount;
-    }
-    
-    /**
-     * Adds money to the player's balance.
-     * @param amount the amount of money to add to the player's balance.
-     */
-    public void addMoney(int amount)
-    {
-        balance += amount;
-    }
-    
-    /**
-     * Used to access the player's balance.
-     * @return the player's balance.
-     */
-    public int getBalance()
-    {
-        return balance;
     }
     
     /**
