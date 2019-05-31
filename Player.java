@@ -273,7 +273,7 @@ public class Player extends Actor
      * Controls all button click input. This includes directional keys for
      * movement and the key to lunge attack. 
      */
-    public void takeInput(
+    public void takeInput()
     {
         if(Greenfoot.isKeyDown("a") && !Greenfoot.isKeyDown("d"))
         {
